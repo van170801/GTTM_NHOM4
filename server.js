@@ -37,6 +37,9 @@ app.get('/', (req, res)=>{
 app.get('/TrangChu', (req, res)=>{
     res.render('TrangChu');
 });
+app.get('/logintc', (req, res)=>{
+    res.render('logintc');
+});
 
 
 // tao tai khoan
@@ -78,7 +81,7 @@ app.post('/login', urlencodedParser, (req, res) => {
         if(result.password == req.body.password && result.username == req.body.username){
             alert('Đăng nhập thành công')
             console.log('dang nhap thanh cong')
-            res.redirect('/TrangChu')
+            res.redirect('/logintc')
         }
     })
     .catch(err=> {
