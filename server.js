@@ -8,7 +8,7 @@ const alert = require('alert');
 // nhan du lieu body-parser
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-mongoose.connect('mongodb://localhost/KS-Nodemy', {
+mongoose.connect('mongodb+srv://gttm_nhom4:van170801@cluster0.m2spfol.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
