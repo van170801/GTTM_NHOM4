@@ -14,6 +14,7 @@ mongoose.connect('mongodb+srv://gttm_nhom4:van170801@cluster0.m2spfol.mongodb.ne
 });
 // mongoose database
 var user = require('./config/connectDB')
+var admin = require('./config/adminDB')
 
 // css
 app.use('/public', express.static(path.join(__dirname, 'public')))
@@ -22,15 +23,19 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 
+
 app.get('/register', (req, res)=>{
     res.render('register');
 });
-app.get('/registertb', (req, res)=>{
-    res.render('registertb');
+app.get('/register/registerfail', (req, res)=>{
+    res.render('registerfail');
 });
 
 app.get('/login', (req, res)=>{
     res.render('login');
+});
+app.get('/loginfail', (req, res)=>{
+    res.render('loginfail');
 });
 
 app.get('/', (req, res)=>{
@@ -40,10 +45,67 @@ app.get('/', (req, res)=>{
 app.get('/TrangChu', (req, res)=>{
     res.render('TrangChu');
 });
-app.get('/logintb', (req, res)=>{
-    res.render('logintb');
+
+
+app.get('/registeradmin', (req, res)=>{
+    res.render('registeradmin');
 });
 
+app.get('/admin', (req, res)=>{
+    res.render('admin');
+});
+
+//admin
+app.post('/registeradmin', urlencodedParser, async (req, res)=>{
+    try{
+        var useradmin = req.body.useradmin
+        const ad =  await admin.findOne({
+            useradmin: useradmin 
+        })
+        if(ad){
+            alert('Tài khoản này đã tồn tại')
+            //res.redirect('register/registerfail')
+            return console.log('tai khoan nay da ton tai')
+            
+        }
+        const moiadmin = new admin({
+            useradmin: req.body.useradmin,
+            password: req.body.password
+        })
+
+        const newAdmin = await admin.create(moiadmin)
+        alert('Tạo tài khoản thành công')
+        //res.redirect('/login')
+        console.log('tao tai khoan thanh cong')
+    }
+    catch(error) {
+        console.log('loi server')
+    }
+    
+});
+
+// dang nhap
+app.post('/admin', urlencodedParser, (req, res) => {
+    
+    var useradmin = req.body.useradmin
+    var password = req.body.password
+
+    admin.findOne({
+        useradmin: useradmin,
+        password: password
+    })
+    .then(result=>{
+        if(result.password == req.body.password && result.useradmin == req.body.useradmin){
+            alert('Đăng nhập ADMIN thành công')
+            console.log('dang nhap admin thanh cong')
+            res.redirect('/register')
+        }
+    })
+    .catch(err=> {
+        alert('Tài khoản không đúng')
+        console.log('dang nhap that bai')
+    })
+});
 
 // tao tai khoan
 app.post('/register', urlencodedParser, async (req, res)=>{
@@ -54,7 +116,7 @@ app.post('/register', urlencodedParser, async (req, res)=>{
         })
         if(use){
             alert('Tài khoản này đã tồn tại')
-            res.redirect('/registertb')
+            res.redirect('register/registerfail')
             return console.log('tai khoan nay da ton tai')
             
         }
@@ -93,7 +155,7 @@ app.post('/login', urlencodedParser, (req, res) => {
     .catch(err=> {
         alert('Tài khoản không đúng')
         console.log('dang nhap that bai')
-        res.redirect('/logintb')
+        res.redirect('/loginfail')
     })
 })
 
