@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+
+
+<style>
+    body
+    {
+        margin: 0 auto; /* chỉnh lề giao diện tự động */
+    }
+    .wrap
+    {
+        max-width: 600px;
+        margin:0px auto;
+    }
+</style>
+</head>
+
+<form action="/login" class="btnexit mt-4">
+  <button> Thoát </button>
+</form>
+<style>
+table{
+    font-size: 25px;
+    font-family:Comic Sans;
+}
+button{
+    height:50px;
+    width:70px;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px rgb(0, 0, 0);
+}
+input{
+    height: 45px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px rgb(0, 0, 0);
+}
+.aduvip{
+    border-radius: 30px;
+}
+table {
+    border-collapse:collapse;
+}
+table, th, td {
+    border: 5px solid black;
+}
+marquee{
+    text-shadow: 1px 2px 3px rgb(0, 0, 0);
+    color: rgb(27, 113, 113);
+}
+img{
+    position:relative;
+    top: 30px;
+}
+.truong{
+    position:relative;
+    left: 70px;
+    bottom: 70px;
+}
+.gtvt{
+    position:relative;
+    left: 60px;
+    bottom: 65px;
+}
+.title{
+    text-shadow: 1px 2px 3px rgb(0, 0, 0);
+    position:relative;
+    bottom: 20px;
+}
+button{
+    position:relative;
+    left: 10px;
+    bottom: 1px;
+}
+.vu{
+    margin: 500px auto;
+}
+#time{
+			background: rgb(5, 79, 42);
+		    padding: 15px;
+		    color: rgb(216, 11, 11);
+		    font-size: 60px;
+		    font-weight: bold;
+		    text-align: center;
+		    width: 250px;
+		    margin: 30px auto;
+		    border-radius: 15px;
+		    font-family:'Times New Roman', Times, serif;
+            border: 5px solid rgb(216, 11, 11);
+            position: relative;
+            left: 130px;
+            bottom: 910px;
+            top: -1700px;
+		}
+
+</style>
+
+<script>
+
+function updatedata()
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+        {
+            var DataVDK = xhttp.responseText;
+            console.log("DỮ LIỆU VDK:" + DataVDK);
+            
+            var DataJson = JSON.parse(DataVDK);
+
+            if(DataJson.KCTruoc != null)
+            {
+                document.getElementById("truoc").innerHTML = DataJson.KCTruoc;
+            }
+            if(DataJson.KCSau != null)
+            {
+                document.getElementById("sau").innerHTML = DataJson.KCSau;
+            }
+            if(DataJson.KCTrai != null)
+            {
+                document.getElementById("trai").innerHTML = DataJson.KCTrai;
+            }
+            if(DataJson.KCPhai != null)
+            {
+                document.getElementById("phai").innerHTML = DataJson.KCPhai;
+            }
+            if(DataJson.GH != null)
+            {
+                document.getElementById("Toithieu").innerHTML = DataJson.GH;
+            }
+            if(DataJson.CB != null)
+            {
+                if(DataJson.CB == 1)
+                {
+                    document.getElementById("coi").innerHTML = "Nguy Hiểm!";
+                }
+                else if(DataJson.CB == 0)
+                {
+                    document.getElementById("coi").innerHTML = "An Toàn";
+                }
+            }
+        }
+    }
+    xhttp.open('GET','/Update', true);
+    xhttp.send();
+    setTimeout(function() { updatedata() }, 1000);
+}
+
+function caidat(data)
+{
+    switch(data)
+    {
+        case 1:
+            var gioihan = "E" + document.getElementById("caidat").value + "F";
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET',"/input?input="+gioihan, true);
+            xhttp.send();
+            break;
+    }
+}
+
+
+</script>
+<body bgcolor="#fff" onload="updatedata()">
+    <br>
+    <marquee <span style="font-size:50px" ><strong>HỆ THỐNG GIAO THÔNG THÔNG MINH NHÓM 4</strong></span></marquee>
+    
+    <div class="wrap">
+        <a href= "https://www.instagram.com/xuan.nht23/" style="font-size:25px">&#10084 THANH XUÂN &#129303</a>
+        <br>
+        <a href= "https://www.instagram.com/vannss.2001/" style="font-size:25px">&#10084 HÀ VĂN &#129303</a>
+        <br>
+        <a href= "https://www.instagram.com/le.van.anh.vu/" style="font-size:25px">&#10084 ANH VŨ &#129303</a>
+        <br>
+        <a href= "https://www.instagram.com/tung.leo.923/" style="font-size:25px">&#10084 NHƯ TÙNG &#129303</a>
+        <p><span style="font-size:25px"></span></p>
+        <table border="5" width="600" height="350">
+            <img height="110px" width="160px" src="https://www.utt.edu.vn/publics/template/default/img/logo-utt.png">
+            <caption class="truong"><span style="font-size:35px"><b>ĐẠI HỌC CÔNG NGHỆ</b></span></caption>
+            <caption class="gtvt"><span style="font-size:35px"><b>GTVT</b></span></caption>
+            <caption class="title"><span style="font-size:35px"><b>HỆ THỐNG GIÁM SÁT VA CHẠM</b></span></caption>
+        </table>
+        <style>
+            .center {
+              margin: -350px auto;
+              width: 50%;
+              height: 500px;
+              /* border: 3px solid green; */
+              padding: 10px;
+              text-align: center;
+            }
+      
+            .hinh1 {
+              margin: auto;
+              width: 40%;
+              height: 30%;
+              /* border: 3px solid green; */
+              border: 3px solid  rgb(99, 16, 16);
+              border-radius: 30%;
+              /* padding: 10px; */
+              text-align: center;
+              background-color: rgb(27, 113, 113);
+              padding: 20px;
+              color:  rgb(235, 213, 213);
+            }
+      
+            .container {
+              margin:  auto;
+              width: 90%;
+              height: 30%;
+              /* border: 3px solid green; */
+              padding: 10px;
+              text-align: center;
+            }
+      
+            .hinh2 {
+              margin: auto;  
+              width: 30%;
+              height: 100%;
+              float: left;
+              /* border: 3px solid green; */
+              /* padding: 10px; */
+              border: 3px solid rgb(99, 16, 16);
+              border-radius: 30%;
+              text-align: center;
+              background-color: rgb(27, 113, 113);
+              margin-left: -150px;
+              padding: 40px;
+              color:  rgb(235, 213, 213);
+            }
+      
+            .oto {
+              width: 30%;
+              height: 100%;
+              /* float: none; */
+              display: inline-block;
+              /* border: 3px solid green; */
+              /* padding: 10px; */
+              text-align: center;
+            }
+      
+            .hinh3 {
+              width: 30%;
+              height: 100%;
+              float: right;
+              /* border: 3px solid green; */
+              /* padding: 10px; */
+              border: 3px solid  rgb(99, 16, 16);
+              border-radius: 30%;
+              text-align: center;
+              background-color: rgb(27, 113, 113);
+              margin-right: -150px;
+              padding: 40px;
+              color:  rgb(235, 213, 213);
+            }
+      
+            .hinh4 {
+              margin: 100px auto;
+              width: 40%;
+              height: 30%;
+              /* border: 3px solid green; */
+              /* padding: 10px;
+           */
+              border: 3px solid  rgb(99, 16, 16);
+              border-radius: 30%;
+              background-color:  rgb(27, 113, 113);
+              text-align: center;
+              padding: 20px;
+              color:  rgb(235, 213, 213);
+            }
+      
+            .img_oto {
+              object-fit: contain;
+              margin-left: -60px;
+      
+            }
+            .phong{
+                font-size: 30px;
+            }
+          </style>
+        
+        <body>
+          <div class="center">
+            <div class="hinh1">
+              <td style="text-align: center">
+                <b>KC Trước: <label id="truoc">
+                    <br>
+                    <div class="phong">0</label> cm</b></div>
+              </td>
+            </div>
+            <div class="container">
+              <div class="hinh2">
+                <td style="text-align: center">
+                  <b>KC Trái: <label id="trai">
+                    <br>
+                    <div class="phong">0</label> cm</b></div>
+                </td>
+              </div>
+              <div class="oto">
+                <img
+                  class="img_oto"
+                  src="https://scontent.xx.fbcdn.net/v/t1.15752-9/312632704_1242222726346917_7177607341052119600_n.jpg?stp=dst-jpg_p206x206&_nc_cat=103&ccb=1-7&_nc_sid=aee45a&_nc_ohc=7QvADnwDI18AX-aQ-hO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdSdhjaHqRPNco1dRGT7X1hfBqeeIqNV2bXqVNADmgnU5g&oe=637BAB02"
+                />
+              </div>
+              <div class="hinh3">
+                <td style="text-align: center">
+                  <b>KC Phải: <label id="phai">
+                    <br>
+                    <div class="phong">0</label> cm</b></div>
+                </td>
+              </div>
+            </div>
+            <div class="hinh4">
+              <td style="text-align: center">
+                <b>KC Sau: <label id="sau">
+                    <br>
+                    <div class="phong">0</label> cm</b></div>
+              </td>
+            </div>
+          </div>
+        </body>
+        <div class="vu">
+            <h1>
+                Trạng Thái:
+                <label id ="coi">0</label>
+                </h1>
+                <h1>Nhập Khoảng Cách Tối Thiểu:</h1>
+                <input id="caidat" style="font-size:25px" type="tel" id="phone" name="phone" placeholder="123-45-678 (Cm)">
+                <button id="myBtn" onclick=caidat(1) style="font-size:20px">Gửi</button>
+                <script>
+                    var input = document.getElementById("caidat");
+                    input.addEventListener("keypress", function(event) {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        document.getElementById("myBtn").click();
+                      }
+                    });
+                </script>
+        </div>
+        <div id="time"></div>
+	<script>
+		function dongho(){
+			var today = new Date();
+			var gio = today.getHours();
+			var phut = today.getMinutes();
+			var giay = today.getSeconds();
+
+			if(gio<10){
+				gio = "0" + gio;
+			}
+			if(phut<10){
+				phut = "0" + phut;
+			}
+			if(giay<10){
+				giay = "0" + giay;
+			}
+			document.getElementById("time").innerHTML = gio + ":" + phut + ":" + giay;
+			setTimeout("dongho()",1000);
+		}
+		dongho();
+	</script>
+    
+    </div>
+    </body>
+    </html>
