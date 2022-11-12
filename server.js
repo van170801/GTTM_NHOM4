@@ -25,6 +25,9 @@ app.set('views', './views');
 app.get('/register', (req, res)=>{
     res.render('register');
 });
+app.get('/registertb', (req, res)=>{
+    res.render('registertb');
+});
 
 app.get('/login', (req, res)=>{
     res.render('login');
@@ -37,8 +40,8 @@ app.get('/', (req, res)=>{
 app.get('/TrangChu', (req, res)=>{
     res.render('TrangChu');
 });
-app.get('/logintc', (req, res)=>{
-    res.render('logintc');
+app.get('/logintb', (req, res)=>{
+    res.render('logintb');
 });
 
 
@@ -51,7 +54,9 @@ app.post('/register', urlencodedParser, async (req, res)=>{
         })
         if(use){
             alert('Tài khoản này đã tồn tại')
+            res.redirect('/registertb')
             return console.log('tai khoan nay da ton tai')
+            
         }
         const moi = new user({
             username: req.body.username,
@@ -60,6 +65,7 @@ app.post('/register', urlencodedParser, async (req, res)=>{
 
         const newDoc = await user.create(moi)
         alert('Tạo tài khoản thành công')
+        res.redirect('/login')
         console.log('tao tai khoan thanh cong')
     }
     catch(error) {
@@ -81,12 +87,13 @@ app.post('/login', urlencodedParser, (req, res) => {
         if(result.password == req.body.password && result.username == req.body.username){
             alert('Đăng nhập thành công')
             console.log('dang nhap thanh cong')
-            res.redirect('/logintc')
+            res.redirect('/TrangChu')
         }
     })
     .catch(err=> {
         alert('Tài khoản không đúng')
         console.log('dang nhap that bai')
+        res.redirect('/logintb')
     })
 })
 
