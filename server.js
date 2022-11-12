@@ -12,38 +12,18 @@ mongoose.connect('mongodb+srv://gttm_nhom4:van170801@cluster0.m2spfol.mongodb.ne
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-// mongoose database
+// craet router   database
 var user = require('./config/connectDB')
 var admin = require('./config/adminDB')
-
 // css
 app.use('/public', express.static(path.join(__dirname, 'public')))
-// cau hinh ejs
+// cau hinh  views ejs
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-
-
-app.get('/register', (req, res)=>{
-    res.render('register');
-});
-app.get('/register/registerfail', (req, res)=>{
-    res.render('registerfail');
-});
-
-app.get('/login', (req, res)=>{
-    res.render('login');
-});
-app.get('/loginfail', (req, res)=>{
-    res.render('loginfail');
-});
-
-app.get('/', (req, res)=>{
+// Router home
+app.get('/home', (req, res)=>{
     res.render('home');
-});
-
-app.get('/TrangChu', (req, res)=>{
-    res.render('TrangChu');
 });
 
 
@@ -54,8 +34,10 @@ app.get('/registeradmin', (req, res)=>{
 app.get('/admin', (req, res)=>{
     res.render('admin');
 });
-
-//admin
+app.get('/adminfail', (req, res)=>{
+    res.render('adminfail');
+});
+// creat admin
 app.post('/registeradmin', urlencodedParser, async (req, res)=>{
     try{
         var useradmin = req.body.useradmin
@@ -63,9 +45,9 @@ app.post('/registeradmin', urlencodedParser, async (req, res)=>{
             useradmin: useradmin 
         })
         if(ad){
-            alert('Tài khoản này đã tồn tại')
-            //res.redirect('register/registerfail')
-            return console.log('tai khoan nay da ton tai')
+            alert('Tài khoản admin này đã tồn tại')
+            res.redirect('adminfail')
+            return console.log('Tài khoản admin này đã tồn tại')
             
         }
         const moiadmin = new admin({
@@ -74,40 +56,47 @@ app.post('/registeradmin', urlencodedParser, async (req, res)=>{
         })
 
         const newAdmin = await admin.create(moiadmin)
-        alert('Tạo tài khoản thành công')
-        //res.redirect('/login')
-        console.log('tao tai khoan thanh cong')
+        alert('Tạo tài khoản admin thành công')
+        res.redirect('/register')
+        console.log('tạo tài khoản admin thành công')
     }
     catch(error) {
-        console.log('loi server')
+        console.log('lỗi server admin')
     }
     
 });
 
-// dang nhap
-app.post('/admin', urlencodedParser, (req, res) => {
+// Login admin
+app.post('/admin', urlencodedParser, async (req, res) => {
     
     var useradmin = req.body.useradmin
     var password = req.body.password
 
-    admin.findOne({
+    await admin.findOne({
         useradmin: useradmin,
         password: password
     })
     .then(result=>{
         if(result.password == req.body.password && result.useradmin == req.body.useradmin){
             alert('Đăng nhập ADMIN thành công')
-            console.log('dang nhap admin thanh cong')
+            console.log('Đăng nhập admin thành công')
             res.redirect('/register')
         }
     })
     .catch(err=> {
         alert('Tài khoản không đúng')
-        console.log('dang nhap that bai')
+        console.log('Đăng nhập admin thất bại')
     })
 });
 
-// tao tai khoan
+// Router register
+app.get('/register', (req, res)=>{
+    res.render('register');
+});
+app.get('/register/registerfail', (req, res)=>{
+    res.render('registerfail');
+});
+// creat user
 app.post('/register', urlencodedParser, async (req, res)=>{
     try{
         var username = req.body.username
@@ -117,7 +106,7 @@ app.post('/register', urlencodedParser, async (req, res)=>{
         if(use){
             alert('Tài khoản này đã tồn tại')
             res.redirect('register/registerfail')
-            return console.log('tai khoan nay da ton tai')
+            return console.log('tài khoản người dùng đã tồn tại')
             
         }
         const moi = new user({
@@ -127,7 +116,7 @@ app.post('/register', urlencodedParser, async (req, res)=>{
 
         const newDoc = await user.create(moi)
         alert('Tạo tài khoản thành công')
-        res.redirect('/login')
+        res.redirect('/')
         console.log('tao tai khoan thanh cong')
     }
     catch(error) {
@@ -135,31 +124,41 @@ app.post('/register', urlencodedParser, async (req, res)=>{
     }
     
 });
-// dang nhap
-app.post('/login', urlencodedParser, (req, res) => {
+
+
+// Router Login
+app.get('/loginfail', (req, res)=>{
+    res.render('loginfail');
+});
+
+app.get('/', (req, res)=>{
+    res.render('login');
+});
+// Compare pasword
+app.post('/', urlencodedParser, async (req, res) => {
     
     var username = req.body.username
     var password = req.body.password
 
-    user.findOne({
+    await user.findOne({
         username: username,
         password: password
     })
     .then(result=>{
         if(result.password == req.body.password && result.username == req.body.username){
             alert('Đăng nhập thành công')
-            console.log('dang nhap thanh cong')
-            res.redirect('/TrangChu')
+            console.log('Đăng nhập thành công')
+            res.redirect('/home')
         }
     })
     .catch(err=> {
         alert('Tài khoản không đúng')
-        console.log('dang nhap that bai')
+        console.log('Tài khoản không đúng')
         res.redirect('/loginfail')
     })
-})
+});
 
-// dia chi ip
+// địa chỉ HEROKU || IP localhost
 app.listen( process.env.PORT ||3000, () => {
-    console.log('bat dau server thanh cong tai dia chi http://localhost:3000');
+    console.log('Server Bắt đầu tại http://localhost:3000');
 });
