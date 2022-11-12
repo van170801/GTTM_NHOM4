@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/van170801/gttm-web.git"
+    "url": "git+https://github.com/havan170801/GTTM_NHOM4.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/van170801/gttm-web/issues"
+    "url": "https://github.com/havan170801/GTTM_NHOM4/issues"
   },
-  "homepage": "https://github.com/van170801/gttm-web#readme",
+  "homepage": "https://github.com/havan170801/GTTM_NHOM4#readme",
   "dependencies": {
     "alert": "^5.1.1",
     "body-parser": "^1.20.1",
