@@ -31,6 +31,10 @@ app.get('/registeradmin', (req, res)=>{
     res.render('registeradmin');
 });
 
+app.get('/loginadminfail', (req, res)=>{
+    res.render('loginadminfail');
+});
+
 app.get('/admin', (req, res)=>{
     res.render('admin');
 });
@@ -86,6 +90,7 @@ app.post('/admin', urlencodedParser, async (req, res) => {
     .catch(err=> {
         alert('Tài khoản không đúng')
         console.log('Đăng nhập admin thất bại')
+        res.redirect('/loginadminfail')
     })
 });
 
