@@ -22,9 +22,9 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 // Router home
-app.get('/home', (req, res)=>{
-    res.render('home');
-});
+// app.get('/home', (req, res)=>{
+//     res.render('home');
+// });
 
 
 app.get('/registeradmin', (req, res)=>{
@@ -153,7 +153,7 @@ app.post('/', urlencodedParser, async (req, res) => {
         if(result.password == req.body.password && result.username == req.body.username){
             alert('Đăng nhập thành công')
             console.log('Đăng nhập thành công')
-            res.redirect('/home')
+            res.redirect('https://www.youtube.com/@Hocdientu')
         }
     })
     .catch(err=> {
