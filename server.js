@@ -153,7 +153,7 @@ app.post('/', urlencodedParser, async (req, res) => {
         if(result.password == req.body.password && result.username == req.body.username){
             alert('Đăng nhập thành công')
             console.log('Đăng nhập thành công')
-            res.redirect('https://www.facebook.com/')
+            res.redirect('http://192.168.255.135')
         }
     })
     .catch(err=> {
